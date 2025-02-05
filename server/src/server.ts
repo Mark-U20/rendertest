@@ -1,25 +1,23 @@
+const forceDatabaseRefresh = false;
 
-import express, { Request, Response } from 'express';
-import path from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
+// import routes from './routes/index.js';
+// import { sequelize } from './models/index.js';
 
 const app = express();
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3001;
 
-// Build an absolute path to the client/dist folder
-const clientBuildPath = path.resolve(__dirname, '../client/dist');
+// Serves static files in the entire client's dist folder
+app.use(express.static('../client/dist'));
 
-// Serve static files from the React app
-app.use(express.static(clientBuildPath));
+app.use(express.json());
+// app.use(routes);
 
-// Optionally, if you have API routes, place them here.
-// For example, if you had an API route, it would be defined before the catch-all route.
-
-// Catch-all route: serve index.html for any route not handled above
-app.get('*', (_req: Request, res: Response) => {
-  res.sendFile(path.join(clientBuildPath, 'index.html'));
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-
+// sequelize.sync({force: forceDatabaseRefresh}).then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+  });
+// });
