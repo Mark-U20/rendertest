@@ -21,9 +21,9 @@ app.use(express.static(clientBuildPath));
 app.use(express.json());
 
 // Catch-all route to serve index.html for any requests that don't match a static file
-app.get('*', (_req: Request, res: Response) => {
-  res.sendFile(path.join(clientBuildPath, 'index.html'));
-});
+// app.get('*', (_req: Request, res: Response) => {
+//   res.sendFile(path.join(clientBuildPath, 'index.html'));
+// });
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
